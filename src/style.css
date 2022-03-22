@@ -1,0 +1,86 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background: #d3d3d3;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2%;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.title h3 {
+  padding: 2%;
+  margin: 0;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #fff;
+}
+
+form input {
+  padding: 2%;
+  border: none;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.list-items {
+  background: #d3d3d3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  background: #fff;
+  padding: 2%;
+}
+
+.list-item div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.list-item div input {
+  width: 20px;
+  height: 20px;
+}
+
+.clear {
+  padding: 2%;
+  background: #fff;
+  border: none;
+  font-size: 16px;
+}
+
+.kebab-icon, .enter-icon, .refresh-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.enter-icon, .refresh-icon {
+  padding: 2%;
+}
+
