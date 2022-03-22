@@ -75,12 +75,14 @@ form input {
   font-size: 16px;
 }
 
-.kebab-icon, .enter-icon, .refresh-icon{
+.kebab-icon,
+.enter-icon,
+.refresh-icon {
   width: 20px;
   height: 20px;
 }
 
-.enter-icon, .refresh-icon {
+.enter-icon,
+.refresh-icon {
   padding: 2%;
 }
-
