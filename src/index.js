@@ -5,6 +5,8 @@ import refreshIcon from './Refresh_icon.svg';
 import { 
   addToDo, 
   getToDos, 
+  removeToDo, 
+  updateToDo,
  } from './store';
 
 const form = document.querySelector('.input-form');
@@ -42,6 +44,27 @@ const addTodoItem = () => {
   form.elements.description.value = '';
 }
 
+const removeToDoItem = () => {
+  let listItemArray = [...listItems.childNodes];
+  listItemArray.forEach((listItem) => {
+    let listItemChild = listItem.firstElementChild;
+    if (listItemChild.classList.contains('completed')){
+      listItem.remove();
+      removeToDo(listItemChild);
+    }
+  })
+}
+
+const updateToDoListCompleted = (completedToDo) => {
+  updateToDo(completedToDo);
+  let listCompleted = completedToDo.parentNode;
+  if (completedToDo.checked === true){
+    listCompleted.classList.add('completed');
+  } else if (completedToDo.checked === false){
+    listCompleted.classList.remove('completed');
+  }
+}
+
 const populateLists = () => {
   let todos = getToDos();
   todos.forEach((list) => {
@@ -64,4 +87,13 @@ document.querySelector('.input-form input').addEventListener('keypress', (e) => 
     addTodoItem();
   }
 });
+
+document.addEventListener('click', (e) => {
+  if (e.target.type === 'checkbox') {
+    let completedToDo = e.target;
+    updateToDoListCompleted(completedToDo);
+  } 
+});
+
+clearButton.addEventListener('click', removeToDoItem);
 
