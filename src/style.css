@@ -24,7 +24,7 @@ main {
   margin: 0;
 }
 
-form {
+.input-form {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,11 +32,19 @@ form {
   background: #fff;
 }
 
-form input {
+.input-form input {
   padding: 2%;
   border: none;
   font-size: 16px;
+  width: -webkit-fill-available;
+}
+
+.input-form input::placeholder {
   font-style: italic;
+}
+
+.input-form input:focus {
+  outline: none;
 }
 
 .list-items {
@@ -54,18 +62,38 @@ form input {
   align-items: center;
   list-style: none;
   background: #fff;
-  padding: 2%;
+  padding: 1%;
 }
 
-.list-item div {
+.list-item .list-container {
   display: flex;
   align-items: center;
   gap: 15px;
+  width: -webkit-fill-available;
 }
 
-.list-item div input {
+.list-item .list-container .checkbox {
   width: 20px;
   height: 20px;
+}
+
+.list-item .list-container .todo-list {
+  border: none;
+  height: 50px;
+  width: -webkit-fill-available;
+}
+
+.list-item .list-container .todo-list:focus {
+  outline: none;
+}
+
+.completed .checkbox {
+  border: none;
+}
+
+.completed .todo-list {
+  text-decoration: line-through;
+  color: #d3d3d3;
 }
 
 .clear {
@@ -86,3 +114,5 @@ form input {
 .refresh-icon {
   padding: 2%;
 }
+
+

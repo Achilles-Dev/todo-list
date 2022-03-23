@@ -2,26 +2,18 @@ import './style.css';
 import kebabMenu from './kebab-menu.svg';
 import enterIcon from './enter-icon.svg';
 import refreshIcon from './Refresh_icon.svg';
+import { 
+  addToDo, 
+  getToDos, 
+ } from './store';
 
-const toDoLists = [
-  {
-    description: 'Have my breakfast',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Take my lunch',
-    completed: false,
-    index: 2,
-  },
-  {
-    description: 'Visit my mum',
-    completed: false,
-    index: 3,
-  },
-];
+const form = document.querySelector('.input-form');
+
+const addList = document.querySelector('.enter-icon');
 
 const listItems = document.querySelector('.list-items');
+
+const clearButton = document.querySelector('.clear');
 
 const refreshImg = document.querySelector('.refresh-icon');
 refreshImg.src = refreshIcon;
@@ -29,25 +21,47 @@ refreshImg.src = refreshIcon;
 const enterImg = document.querySelector('.enter-icon');
 enterImg.src = enterIcon;
 
-const populateLists = () => {
-  toDoLists.forEach((list) => {
-    const listItem = document.createElement('li');
+const createTodo = (list) => {
+  const listItem = document.createElement('li');
     listItem.className = 'list-item';
-    listItem.innerHTML = ` <div>
-        <input type="checkbox"></input>
-        <p>${list.description}</p>
+    listItem.innerHTML = 
+    ` 
+      <div class="list-container">
+        <input type="checkbox" class="checkbox">
+        <input type="text" value="${list}" class="todo-list">
       </div>
       <img src="${kebabMenu}" alt="Kebab-menu" class="kebab-icon">
     `;
-    // let radioBox = document.createElement('input');
-    // radioBox.type = 'checkbox';
-    // listItem.appendChild(radioBox);
-    // listItem.textContent = list.description;
-    // ;
     listItems.appendChild(listItem);
+}
+
+const addTodoItem = () => {
+  const list = form.elements.description.value;
+  createTodo(list);
+  addToDo(list);
+  form.elements.description.value = '';
+}
+
+const populateLists = () => {
+  let todos = getToDos();
+  todos.forEach((list) => {
+    createTodo(list.description);
+    list.completed = false;
   });
+  window.localStorage.setItem('todosStored', JSON.stringify(todos));
 };
+
 
 document.addEventListener('DOMContentLoaded', () => {
   populateLists();
 });
+
+addList.addEventListener('click', addTodoItem);
+
+document.querySelector('.input-form input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter'){
+    e.preventDefault();
+    addTodoItem();
+  }
+});
+
