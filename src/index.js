@@ -7,7 +7,7 @@ import {
   getToDos,
   removeToDo,
   updateToDoCompleted,
-  updateToDoListDescription
+  updateToDoListDescription,
 } from './store.js';
 
 const form = document.querySelector('.input-form');
@@ -24,14 +24,13 @@ refreshImg.src = refreshIcon;
 const enterImg = document.querySelector('.enter-icon');
 enterImg.src = enterIcon;
 
-//Get Initial value of Label;
+// Get Initial value of Label;
 let initialValue;
 
 const createTodo = (list) => {
   const listItem = document.createElement('li');
   listItem.className = 'list-item';
-  listItem.innerHTML = 
-    ` 
+  listItem.innerHTML = ` 
       <div class="list-container">
         <input type="checkbox" class="checkbox">
         <label class="todo-list">${list}</label>
@@ -70,28 +69,28 @@ const updateToDoListCompleted = (completedToDo) => {
 };
 
 const updateToDoList = (e) => {
-	if (e.target.value.length > 0 && (e.key === 'Enter' || e.type === 'click')) {
-		let label = document.createElement('label');
+  if (e.target.value.length > 0 && (e.key === 'Enter' || e.type === 'click')) {
+    const label = document.createElement('label');
     label.className = 'todo-list';
-		label.textContent = e.target.value;
-		e.target.replaceWith(label);
+    label.textContent = e.target.value;
+    e.target.replaceWith(label);
     updateToDoListDescription(e.target.value, initialValue);
-	 } else if (e.target.value.length === 0 && (e.key === 'Enter' || e.type === 'click')) {
-		let label = document.createElement('label');
+  } else if (e.target.value.length === 0 && (e.key === 'Enter' || e.type === 'click')) {
+    const label = document.createElement('label');
     label.className = 'todo-list';
-		label.textContent = initialValue;
-		e.target.replaceWith(label);
-	}
-}
+    label.textContent = initialValue;
+    e.target.replaceWith(label);
+  }
+};
 
 const editToDoList = (e) => {
-  let item = e.target.innerHTML;
+  const item = e.target.innerHTML;
   initialValue = item;
-  //console.log(initialValue);
-	let itemInput = document.createElement('input');
-	itemInput.type = 'text';
-	itemInput.value = item;
-	itemInput.classList.add('todo-edit');
+  // console.log(initialValue);
+  const itemInput = document.createElement('input');
+  itemInput.type = 'text';
+  itemInput.value = item;
+  itemInput.classList.add('todo-edit');
   itemInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       updateToDoList(e);
@@ -99,8 +98,8 @@ const editToDoList = (e) => {
   });
   itemInput.addEventListener('click', updateToDoList);
   e.target.replaceWith(itemInput);
-	itemInput.select();
-}
+  itemInput.select();
+};
 
 const populateLists = () => {
   const todos = getToDos();
@@ -117,14 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 addList.addEventListener('click', addTodoItem);
 
-addList.addEventListener('keypress', (e) => {
+document.querySelector('.input-form input').addEventListener('keypress', (e) => {
   e.preventDefault();
-  if (e.key === 'Enter' && e.target.name === 'description') {
+  if (e.key === 'Enter'){
     addTodoItem();
   }
 });
 
 document.addEventListener('click', (e) => {
+  e.preventDefault();
   if (e.target.type === 'checkbox') {
     updateToDoListCompleted(e.target);
   } else if (e.target.classList.contains('todo-edit')) {
@@ -133,7 +133,6 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('dblclick', (e) => {
-  //console.log(e.target);
   if (e.target.classList.contains('todo-list')) {
     editToDoList(e);
   }

@@ -36,7 +36,7 @@ export const updateToDoCompleted = (completedToDo) => {
   const todos = getToDos();
   todos.forEach((todo) => {
     if (todo.description === todoList.textContent) {
-      const completed  = todo.completed;
+      const { completed } = todo;
       todo.completed = !completed;
     }
   });
@@ -44,7 +44,6 @@ export const updateToDoCompleted = (completedToDo) => {
 };
 
 export const updateToDoListDescription = (newInput, initialValue) => {
-  console.log(newInput.value);
   const todos = getToDos();
   todos.forEach((todo) => {
     if (todo.description === initialValue) {
