@@ -2,7 +2,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background: #d3d3d3;
+  background: #f6f6f6;
 }
 
 main {
@@ -70,6 +70,7 @@ main {
   align-items: center;
   gap: 15px;
   width: -webkit-fill-available;
+  padding: 1%;
 }
 
 .list-item .list-container .checkbox {
@@ -78,12 +79,16 @@ main {
 }
 
 .list-item .list-container .todo-list {
-  border: none;
-  height: 50px;
-  width: -webkit-fill-available;
+  font-size: 18px;
 }
 
-.list-item .list-container .todo-list:focus {
+.list-item .list-container .todo-edit {
+  border: none;
+  width: -webkit-fill-available;
+  font-size: 18px;
+}
+
+.list-item .list-container .todo-edit:focus {
   outline: none;
 }
 
@@ -98,9 +103,15 @@ main {
 
 .clear {
   padding: 2%;
-  background: #fff;
+  background: #f6f6f6;
   border: none;
   font-size: 16px;
+  opacity: 0.5;
+  box-shadow: 0px 2px 8px #00000026;
+}
+
+.clear:hover {
+  cursor: pointer;
 }
 
 .kebab-icon,

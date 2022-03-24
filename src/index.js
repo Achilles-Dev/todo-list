@@ -2,12 +2,13 @@ import './style.css';
 import kebabMenu from './kebab-menu.svg';
 import enterIcon from './enter-icon.svg';
 import refreshIcon from './Refresh_icon.svg';
-import { 
-  addToDo, 
-  getToDos, 
-  removeToDo, 
-  updateToDo,
- } from './store';
+import {
+  addToDo,
+  getToDos,
+  removeToDo,
+  updateToDoCompleted,
+  updateToDoListDescription
+} from './store.js';
 
 const form = document.querySelector('.input-form');
 
@@ -23,50 +24,86 @@ refreshImg.src = refreshIcon;
 const enterImg = document.querySelector('.enter-icon');
 enterImg.src = enterIcon;
 
+//Get Initial value of Label;
+let initialValue;
+
 const createTodo = (list) => {
   const listItem = document.createElement('li');
-    listItem.className = 'list-item';
-    listItem.innerHTML = 
+  listItem.className = 'list-item';
+  listItem.innerHTML = 
     ` 
       <div class="list-container">
         <input type="checkbox" class="checkbox">
-        <input type="text" value="${list}" class="todo-list">
+        <label class="todo-list">${list}</label>
       </div>
       <img src="${kebabMenu}" alt="Kebab-menu" class="kebab-icon">
     `;
-    listItems.appendChild(listItem);
-}
+  listItems.appendChild(listItem);
+};
 
 const addTodoItem = () => {
   const list = form.elements.description.value;
   createTodo(list);
   addToDo(list);
   form.elements.description.value = '';
-}
+};
 
 const removeToDoItem = () => {
-  let listItemArray = [...listItems.childNodes];
+  const listItemArray = [...listItems.childNodes];
   listItemArray.forEach((listItem) => {
-    let listItemChild = listItem.firstElementChild;
-    if (listItemChild.classList.contains('completed')){
+    const listItemChild = listItem.firstElementChild;
+    if (listItemChild.classList.contains('completed')) {
       listItem.remove();
       removeToDo(listItemChild);
     }
-  })
-}
+  });
+};
 
 const updateToDoListCompleted = (completedToDo) => {
-  updateToDo(completedToDo);
-  let listCompleted = completedToDo.parentNode;
-  if (completedToDo.checked === true){
+  updateToDoCompleted(completedToDo);
+  const listCompleted = completedToDo.parentNode;
+  if (completedToDo.checked === true) {
     listCompleted.classList.add('completed');
-  } else if (completedToDo.checked === false){
+  } else if (completedToDo.checked === false) {
     listCompleted.classList.remove('completed');
   }
+};
+
+const updateToDoList = (e) => {
+	if (e.target.value.length > 0 && (e.key === 'Enter' || e.type === 'click')) {
+		let label = document.createElement('label');
+    label.className = 'todo-list';
+		label.textContent = e.target.value;
+		e.target.replaceWith(label);
+    updateToDoListDescription(e.target.value, initialValue);
+	 } else if (e.target.value.length === 0 && (e.key === 'Enter' || e.type === 'click')) {
+		let label = document.createElement('label');
+    label.className = 'todo-list';
+		label.textContent = initialValue;
+		e.target.replaceWith(label);
+	}
+}
+
+const editToDoList = (e) => {
+  let item = e.target.innerHTML;
+  initialValue = item;
+  //console.log(initialValue);
+	let itemInput = document.createElement('input');
+	itemInput.type = 'text';
+	itemInput.value = item;
+	itemInput.classList.add('todo-edit');
+  itemInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      updateToDoList(e);
+    }
+  });
+  itemInput.addEventListener('click', updateToDoList);
+  e.target.replaceWith(itemInput);
+	itemInput.select();
 }
 
 const populateLists = () => {
-  let todos = getToDos();
+  const todos = getToDos();
   todos.forEach((list) => {
     createTodo(list.description);
     list.completed = false;
@@ -74,26 +111,32 @@ const populateLists = () => {
   window.localStorage.setItem('todosStored', JSON.stringify(todos));
 };
 
-
 document.addEventListener('DOMContentLoaded', () => {
   populateLists();
 });
 
 addList.addEventListener('click', addTodoItem);
 
-document.querySelector('.input-form input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter'){
-    e.preventDefault();
+addList.addEventListener('keypress', (e) => {
+  e.preventDefault();
+  if (e.key === 'Enter' && e.target.name === 'description') {
     addTodoItem();
   }
 });
 
 document.addEventListener('click', (e) => {
   if (e.target.type === 'checkbox') {
-    let completedToDo = e.target;
-    updateToDoListCompleted(completedToDo);
-  } 
+    updateToDoListCompleted(e.target);
+  } else if (e.target.classList.contains('todo-edit')) {
+    updateToDoList(e);
+  }
+});
+
+document.addEventListener('dblclick', (e) => {
+  //console.log(e.target);
+  if (e.target.classList.contains('todo-list')) {
+    editToDoList(e);
+  }
 });
 
 clearButton.addEventListener('click', removeToDoItem);
-
