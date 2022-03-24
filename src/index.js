@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
 addList.addEventListener('click', addTodoItem);
 
 document.querySelector('.input-form input').addEventListener('keypress', (e) => {
-  e.preventDefault();
   if (e.key === 'Enter') {
+    e.preventDefault();
     addTodoItem();
   }
 });
