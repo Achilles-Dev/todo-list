@@ -2,7 +2,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background: #d3d3d3;
+  background: #f6f6f6;
 }
 
 main {
@@ -24,7 +24,7 @@ main {
   margin: 0;
 }
 
-form {
+.input-form {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,11 +32,19 @@ form {
   background: #fff;
 }
 
-form input {
+.input-form input {
   padding: 2%;
   border: none;
   font-size: 16px;
+  width: 100%;
+}
+
+.input-form input::placeholder {
   font-style: italic;
+}
+
+.input-form input:focus {
+  outline: none;
 }
 
 .list-items {
@@ -54,25 +62,56 @@ form input {
   align-items: center;
   list-style: none;
   background: #fff;
-  padding: 2%;
+  padding: 1%;
 }
 
-.list-item div {
+.list-item .list-container {
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 100%;
+  padding: 1%;
 }
 
-.list-item div input {
+.completed .checkbox {
+  border: none;
+}
+
+.completed .todo-list {
+  text-decoration: line-through;
+  color: #d3d3d3;
+}
+
+.list-item .list-container .checkbox {
   width: 20px;
   height: 20px;
 }
 
+.list-item .list-container .todo-list {
+  font-size: 18px;
+}
+
+.list-item .list-container .todo-edit {
+  border: none;
+  width: 100%;
+  font-size: 18px;
+}
+
+.list-item .list-container .todo-edit:focus {
+  outline: none;
+}
+
 .clear {
   padding: 2%;
-  background: #fff;
+  background: #f6f6f6;
   border: none;
   font-size: 16px;
+  opacity: 0.5;
+  box-shadow: 0 2px 8px #00000026;
+}
+
+.clear:hover {
+  cursor: pointer;
 }
 
 .kebab-icon,
