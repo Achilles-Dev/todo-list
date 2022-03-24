@@ -4,11 +4,15 @@ import enterIcon from './enter-icon.svg';
 import refreshIcon from './Refresh_icon.svg';
 import {
   addToDo,
-  getToDos,
-  removeToDo,
+  getToDos
+} from '../modules/store.js';
+import {
   updateToDoCompleted,
-  updateToDoListDescription,
-} from './store.js';
+  updateToDoListDescription
+} from '../modules/edit.js';
+import {
+  removeToDo
+} from '../modules/clear.js';
 
 const form = document.querySelector('.input-form');
 
@@ -61,6 +65,7 @@ const removeToDoItem = () => {
 const updateToDoListCompleted = (completedToDo) => {
   updateToDoCompleted(completedToDo);
   const listCompleted = completedToDo.parentNode;
+  console.log(listCompleted);
   if (completedToDo.checked === true) {
     listCompleted.classList.add('completed');
   } else if (completedToDo.checked === false) {
@@ -86,7 +91,6 @@ const updateToDoList = (e) => {
 const editToDoList = (e) => {
   const item = e.target.innerHTML;
   initialValue = item;
-  // console.log(initialValue);
   const itemInput = document.createElement('input');
   itemInput.type = 'text';
   itemInput.value = item;
@@ -124,7 +128,6 @@ document.querySelector('.input-form input').addEventListener('keypress', (e) => 
 });
 
 document.addEventListener('click', (e) => {
-  e.preventDefault();
   if (e.target.type === 'checkbox') {
     updateToDoListCompleted(e.target);
   } else if (e.target.classList.contains('todo-edit')) {
