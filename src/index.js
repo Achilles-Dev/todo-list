@@ -4,15 +4,14 @@ import enterIcon from './enter-icon.svg';
 import refreshIcon from './Refresh_icon.svg';
 import {
   addToDo,
-  getToDos
+  getToDos,
 } from '../modules/store.js';
 import {
   updateToDoCompleted,
-  updateToDoListDescription
+  updateToDoListDescription,
 } from '../modules/edit.js';
-import {
-  removeToDo
-} from '../modules/clear.js';
+
+import removeToDo from '../modules/clear.js';
 
 const form = document.querySelector('.input-form');
 
@@ -65,7 +64,6 @@ const removeToDoItem = () => {
 const updateToDoListCompleted = (completedToDo) => {
   updateToDoCompleted(completedToDo);
   const listCompleted = completedToDo.parentNode;
-  console.log(listCompleted);
   if (completedToDo.checked === true) {
     listCompleted.classList.add('completed');
   } else if (completedToDo.checked === false) {

@@ -1,9 +1,11 @@
+import { getToDos } from './store.js';
+
 export const updateToDoCompleted = (completedToDo) => {
   const todoList = completedToDo.nextElementSibling;
   const todos = getToDos();
   todos.forEach((todo) => {
     if (todo.description === todoList.textContent) {
-      let todoCompleted = todo.completed;
+      const todoCompleted = todo.completed;
       todo.completed = !todoCompleted;
     }
   });
