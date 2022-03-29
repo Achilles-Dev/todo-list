@@ -2,7 +2,7 @@
 
 # To Do List 
 
-> A website that keeps track of activities to perform.
+> A website that keeps track of activities to perform during the day and checks and deletes completed activities.
 
 
 ## Built With
@@ -13,7 +13,7 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone Repository 
    ```
-   git clone git@github.com:Achilles-Dev/awesome-books-pair.git
+   git@github.com:Achilles-Dev/todo-list.git
    ```
 
 ### Install
@@ -22,6 +22,10 @@ To get a local copy up and running follow these simple example steps.
    ```
    npm install --save-dev hint@6.x
    ```
+
+### Link to Online Version
+
+   [ToDo List](https://achilles-dev.github.io/todo-list/dist) 
 
 ## Authors
 
