@@ -5,10 +5,13 @@ import refreshIcon from './Refresh_icon.svg';
 import {
   addToDo,
   getToDos,
-  removeToDo,
+} from '../modules/store.js';
+import {
   updateToDoCompleted,
   updateToDoListDescription,
-} from './store.js';
+} from '../modules/edit.js';
+
+import removeToDo from '../modules/clear.js';
 
 const form = document.querySelector('.input-form');
 
@@ -86,7 +89,6 @@ const updateToDoList = (e) => {
 const editToDoList = (e) => {
   const item = e.target.innerHTML;
   initialValue = item;
-  // console.log(initialValue);
   const itemInput = document.createElement('input');
   itemInput.type = 'text';
   itemInput.value = item;
@@ -124,7 +126,6 @@ document.querySelector('.input-form input').addEventListener('keypress', (e) => 
 });
 
 document.addEventListener('click', (e) => {
-  e.preventDefault();
   if (e.target.type === 'checkbox') {
     updateToDoListCompleted(e.target);
   } else if (e.target.classList.contains('todo-edit')) {
