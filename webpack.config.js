@@ -12,6 +12,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      meta: {
+        'og:image': { property: 'og:image', content: './src/todolist.png'},
+      }
     }),
   ],
   output: {
